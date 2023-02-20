@@ -1,0 +1,10 @@
+.input-file input[type=file]{
+    height: 0px;
+    width: 0px;
+}
+
+.line-1 {
+    height: 1px;
+    background: black;
+    width: 100%;
+  }
