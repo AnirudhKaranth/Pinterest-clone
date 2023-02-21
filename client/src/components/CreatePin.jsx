@@ -5,9 +5,11 @@ import FileBase64 from 'react-file-base64'
 import './createPin.css'
 import { useAppContext } from '../context/appContext';
 import { Link } from 'react-router-dom';
+import Alert from './Alert';
+import Spinner from './Spinner'
 
 const CreatePin = () => {
-  const { user, user_id, createPin } = useAppContext();
+  const { user, user_id, createPin, showAlert, isLoading } = useAppContext();
 
   const [image, setImage] = useState("")
   const [title, setTitle] = useState("")
@@ -40,8 +42,13 @@ const CreatePin = () => {
 
   }
   return (
-    <div className='h-screen' >
+    <div className='h-screen relative' >
       <Navbar />
+      {showAlert &&
+        <div className='w-full absolute'>
+          <Alert/>
+          {isLoading && <Spinner message={"Loading"} />}
+        </div>}
       <div className=' h-full w-full flex  items-start justify-center ' style={{ "backgroundColor": "#efefef" }}>
 
         <form className='flex flex-col h-full w-full my-1 mx-1 sm:hidden  bg-white rounded-sm' onSubmit={handleSubmit}>

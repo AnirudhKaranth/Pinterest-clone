@@ -49,7 +49,7 @@ const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const authFetch = axios.create({
-        baseURL: 'http://localhost:5000/api/v1',
+        baseURL: 'https://pinterest-clone-i8fo.onrender.com/api/v1',
 
     })
 
@@ -205,6 +205,7 @@ const AppProvider = ({ children }) => {
                 }
             })
             dispatch({ type: SUCCESS })
+            displayAlert("Pin created successfully", "success")
             return true
         } catch (error) {
             dispatch({ type: ERROR })
