@@ -49,7 +49,7 @@ const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const authFetch = axios.create({
-        baseURL: '<YOUR_BACKEND_URL>',
+        baseURL: 'http://localhost:5000',
 
     })
 
