@@ -49,7 +49,7 @@ const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const authFetch = axios.create({
-        baseURL: 'https://pinterest-clone-i8fo.onrender.com/api/v1',
+        baseURL: '<YOUR_BACKEND_URL>',
 
     })
 
