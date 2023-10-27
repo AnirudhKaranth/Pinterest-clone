@@ -84,14 +84,3 @@ const Auth = () => {
 }
 
 export default Auth
-/*
-{
-    "User": {
-        "_id": "63d935a7b625d461a46833d8",
-        "name": "Arun",
-        "email": "arun@gmail.com",
-        "__v": 0
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2Q5MzVhN2I2MjVkNDYxYTQ2ODMzZDgiLCJpYXQiOjE2NzYxMjkwNDUsImV4cCI6MTY3NjIxNTQ0NX0.PfJEryDDiVPp2W_HymTQtdAVzSk8-rnk4yyLx2girvc"
-}
-*/

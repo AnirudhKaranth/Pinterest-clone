@@ -6,13 +6,14 @@ import checkPermissions from "../utils/checkPermissions.js";
 
 export const createPin = async (req, res, next) => {
     try {
+        // Add createdBy and user details to the pin that exists in request body
         req.body.createdBy = req.User.userId;
         const USER = await user.findById({ _id: req.User.userId });
         const userName = USER.name;
         const profile = USER?.profile
         const { title, destination, about, image, altText, createdBy } = req.body;
 
-
+        // Create the pin and send it in the response
         const Pin = await pin.create({ title, destination, about, image, altText, createdBy, userName, profile });
 
         res.status(201).json({ Pin });
@@ -22,18 +23,21 @@ export const createPin = async (req, res, next) => {
     }
 }
 
+// Save a pin
 export const savePin = async (req, res, next) => {
     try {
         const { _id: pinId } = req.body
         const _id = req.User.userId;
 
+        // Find the pin by ID
         const Pin = await pin.findOne({ _id: pinId })
 
         if (!Pin) {
             return next(createCustomError(`There is no pin with id ${pinId} `))
         }
-        const savedPin = await pin.findByIdAndUpdate(pinId, { $set: { 'savedBy': [{ _id }] } }, { new: true })
 
+        // Save the pin and retrieve all pins
+        const savedPin = await pin.findByIdAndUpdate(pinId, { $set: { 'savedBy': [{ _id }] } }, { new: true })
         let Pins = await pin.find();
         
         res.status(200).json({ savedPin, Pins });
@@ -52,6 +56,7 @@ export const deletePin = async (req, res, next) => {
             return next(createCustomError(`There is no pin with id ${pinId} `))
         }
 
+         // Check if the user is authorized to delete the pin and delete the pin
         checkPermissions(req.User, Pin.createdBy, next);
 
         await Pin.remove();
@@ -70,7 +75,7 @@ export const getAllPins = async (req, res, next) => {
             res.status(200).send({ Pins })
         }
         else {
-           
+            // Search for pins with matching title or about field
             let Pins = await pin.find({ $or: [{ title: { $regex: search, $options: 'i' } }, { about: { $regex: search, $options: 'i' } }] })
             
             res.status(200).json({ Pins })
@@ -92,6 +97,8 @@ export const addComment = async (req, res, next) => {
 
         const {commentBody, profileImage} = comment
 
+        
+        // Add the comment to the pin and send the updated pin
         const commentedPin = await pin.findByIdAndUpdate(pinId, { $addToSet: { 'comments': [{ commentBody, commentedBy, UserID, profileImage }] } }, { new: true })
 
         res.status(200).json({ commentedPin })
@@ -107,6 +114,7 @@ export const deleteComment = async (req, res, next) => {
         const { cId } = req.query
         const cID  = mongoose.Types.ObjectId(cId);
 
+        // Delete a comment from the pin and send the updated pin
         const commentedPin = await pin.findByIdAndUpdate(pinId, { $pull: { 'comments': { _id: { $eq: cID } } } }, { new: true })
         
         res.status(200).json({ commentedPin })
@@ -115,18 +123,6 @@ export const deleteComment = async (req, res, next) => {
         next(error)
     }
 }
-
-// export const getAllComments = async(req, res, next)=>{
-//     try {
-//         const {id: _id} = req.params;
-//         let PIN = await pin.findById({_id});
-//         const comments = PIN.comments
-//         res.status(200).send({comments})
-
-//     } catch (error) {
-//         next(error)
-//     }
-// }
 
 export const getPinDetail = async (req, res, next) => {
     try {
