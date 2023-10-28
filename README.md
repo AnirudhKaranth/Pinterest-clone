@@ -1,4 +1,4 @@
-# Pinterst-clone
+# Pinterest-clone
 (https://pinterest-clone-ani.netlify.app)  
 
 ## Description
