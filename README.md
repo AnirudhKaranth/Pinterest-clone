@@ -1,5 +1,5 @@
 # Pinterest-clone
-(https://pinterest-clone-ani.netlify.app)  
+<!--(https://pinterest-clone-ani.netlify.app)  -->
 
 ## Description
 This Pinterest clone project is a personal endeavor to replicate some of the core features of Pinterest, focusing on user management, pin posting, commenting, saving pins, and user profiles. It was built using React.js for the frontend, Node.js and Express.js for the backend, and MongoDB for the database.
